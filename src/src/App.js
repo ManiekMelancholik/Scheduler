@@ -1,14 +1,9 @@
 import {useState} from 'react';
 import './App.css';
-import {PeopleList} from './lists/PeopleList.js'
+import {PeopleView} from './views/PeopleView.js'
 function App() {
-  const [title, setTitle] = useState('welcome')
-  const [likes, setLikes] = useState(50)
-
-  function handleClick(){
-    setLikes(likes + 1)
-    console.log(likes)
-  }
+ 
+ 
   const [r, setR] = useState(false);
   const [people, setPeople] = useState([
   //   // new PersonModel("Adam","Nowak", "Mgr", 0), 
@@ -28,7 +23,7 @@ function App() {
     {firstname: "Ewa",surname:"Kowalsa", title:"Mgr", id:7}, 
     {firstname: "Anna",surname:"Bronowicka", title:"Dr", id:8}, 
   ])
-
+  
   const updateSource = (firstname,surname,title, id)=>{
   
     var person = people.find((person)=>person.id===id)
@@ -44,38 +39,40 @@ function App() {
 
 
   return (
-    <div className="App">
-      <h1>{title}</h1>
-      <h4>Liked {likes} times</h4>
-      <button onClick ={handleClick} >
-        Like +1
-      </button>
-     <div className=" full row" >
-        
-        {/* <div className="container half col" >
-        {people.map((person)=>{
-          return(
-            <div key={person.id} className="form col">
-              <h3>{person.title}</h3>
-              <p>{person.firstname}</p>
-              <p>{person.surname}</p>
-            </div>
-          )
-        })}
-        </div> */}
-
-
-        <div className="container half col">
-        <PeopleList  people={people} updateSource={updateSource}/>
-        </div>        
-        <div className="container half col">
-          
-        </div>
-          
-        </div>
-      {/* <PersonForm firstname = {title} surname="nowak" title="mgr"/> */}
+    <PeopleView/>
+    // <div className="App">
      
-    </div>
+    //  <div className=" full row" >
+        
+    //     {/* <div className="container half col" >
+    //     {people.map((person)=>{
+    //       return(
+    //         <div key={person.id} className="form col">
+    //           <h3>{person.title}</h3>
+    //           <p>{person.firstname}</p>
+    //           <p>{person.surname}</p>
+    //         </div>
+    //       )
+    //     })}
+    //     </div> */}
+
+        
+    //     <div className="container half col">
+    //       <div className="button dif-button"><h2>Add person + </h2></div>
+    //       <div className="vertical-scroll">
+    //         <PeopleList  people={people} updateSource={updateSource}/>
+    //       </div>
+    //     </div>        
+    //     <div className="container half col">
+    //       <div className="vertical-scroll">
+
+    //       </div>
+    //     </div>
+          
+    //     </div>
+    //   {/* <PersonForm firstname = {title} surname="nowak" title="mgr"/> */}
+     
+    // </div>
   );
 }
 

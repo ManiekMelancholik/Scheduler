@@ -7,8 +7,10 @@ export  const  PersonForm = (props)=>{
     const [surname, setSurame] = useState(props.surname)
     const [title, setTitle] = useState(props.title)
     const [id, setId] = useState(props.id)
+
     const updateSource = props.updateSource
-    const select = props.select
+    
+
     const firstnameHandle = (val)=>{
         setFirstname(val.target.value)
         updateSource(val.target.value,surname,title, id)
