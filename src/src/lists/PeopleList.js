@@ -3,18 +3,12 @@ import {PersonForm} from '../forms/PersonForm.js'
 
 export  const  PeopleList = (props)=>{
 
-    // const [people, setPeople] = useState(props.people)
-    
     const [selected, setSelected] = useState(-1);
     const updateSource = props.updateSource
 
     const delPerson = props.delPerson
     const addPerson = props.addPerson
-    // const delPer = (id)=>{
-    //     const newPeople = people.filter((person)=>{return(person.id!==id)})
-                    
-    //     setPeople(newPeople)
-    // }
+ 
 
     const select = (id)=>{
         setSelected(id)
