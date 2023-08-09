@@ -229,6 +229,7 @@ flex-direction: column;
 .week{
   display: flex;
   align-items: center;
+  position: relative;
   justify-content: center;
   width: 100%;
   user-select: none;
@@ -271,4 +272,23 @@ flex-direction: column;
 .static-tableNames{
   /* position: absolute;
   top: 0; */
+}
+#selector-box{
+  position:fixed;
+  user-select: none;
+  visibility: collapse;
+  pointer-events: none;
+  background-color: gray;
+  opacity: .2;
+  border: 2px solid black;
+  width: 20px;
+  height: 20px;
+  z-index: 5;
+}
+[drawing="1"]#selector-box{
+  visibility: visible;
+
+}
+.static-tableNames th:hover{
+  background-color: lightblue;
 }

@@ -9,33 +9,47 @@ export const WeekList = (props) => {
     var weekStart;
     var weekEnd;
     var selectedElemnts=[];
+
+    var selectorBox;
+
+    var lastX;
+    var lastY;
+
+
+    var selecting = false;
+
     const selCol = (name) =>{
         unSel()
         var temp = document.getElementsByClassName(name);
-            // console.log(temp)
 
         var temp2 = []
         for(var j = 0; j < temp.length; j++){
             temp[j].setAttribute("mark","1")
             temp2.push(temp[j])
+            selecting = true;
         }
         selectedElemnts = temp2
         
     }
 
     const unSel = () =>{
-        console.log(selectedElemnts)
         for(let i = 0; i<selectedElemnts.length; i++){
             selectedElemnts[i].setAttribute("mark","0")
         }
+        selectedElemnts=[]
+        start=null
+        end=null
+        weekStart=null
+        weekEnd=null
     }
 
     const sel = (event) => {
-        unSel()
+        
    
         let s = parseInt(weekStart[weekStart.length-1])
         let e = parseInt(weekEnd[weekEnd.length-1])
-
+        start = parseInt(start)
+        end = parseInt(end)
         if(e<s){
             let t = s;
             s = e;
@@ -46,13 +60,15 @@ export const WeekList = (props) => {
             start = end
             end = t
         }
-        start = parseInt(start)
-        end = parseInt(end)
         
+        // console.log(weekStart + " start: "+start + " s: "+s)
+      
+        // console.log(weekEnd + "  end: " + end + "  e: "+e)
+       
         var temp2 = [];
         for(let i = s; i < parseInt(e)+1; i++){
             var temp = document.getElementsByClassName("d4y-"+i);
-            // console.log(temp)
+
             
             for(let j = 0; j < temp.length; j++){
                 let v = parseInt(temp[j].getAttribute("v"))
@@ -73,32 +89,100 @@ export const WeekList = (props) => {
 
     const selStart = (event) => {
         if(event.buttons===1){
-            
+        unSel()
+
+        
+            // if(selectorBox!==null){
+                let n = event.target.className;
+                if(n.includes("d4y")){
+                    start = event.target.getAttribute("v")
+                    let l = n.length
+                    weekStart = n.substring(l-5,l)
+                }
+            // }
+          
+        }
+    }
+    
+    const selEnd = (event) => {
+        if(event.buttons === 0){
             let n = event.target.className;
             if(n.includes("d4y")){
-                start = event.target.getAttribute("v")
+                end = event.target.getAttribute("v")
                 let l = n.length
-                weekStart = n.substring(l-5,l)
+                weekEnd = n.substring(l-5,l)
+            }
+            if(selectorBox!==null){
+               sel();
+            }
+        }
+        
+    }
+
+
+    const boxSelectStart = (event) => {
+        if(event.buttons===1){
+            let n = event.target.className;
+                
+            if(n.includes("d4y")){
+                selectorBox = (document.getElementById("selector-box"))
+                selectorBox.setAttribute("drawing", "1")
+                let e = window.event
+                lastX = e.clientX
+                lastY = e.clientY
+
+
+                selectorBox.style["top"] = lastY+"px"
+                selectorBox.style['left'] = lastX + "px"
+            }
+        }
+
+    }
+
+    const boxSelect = (event)=>{
+        if(event.buttons===1){
+            
+
+            if(selectorBox!==null){
+                let n = event.target.className;
+                
+                if(n.includes("d4y")){
+                    let e = window.event
+                
+                    end = event.target.getAttribute("v")
+                    let l = n.length
+                    weekEnd = n.substring(l-5,l)
+
+                        if((e.clientY - lastY)<0){
+                            selectorBox.style["top"] = e.clientY+"px"
+                        }
+                        if((e.clientX-lastX)<0){
+                            selectorBox.style["left"] = e.clientX+"px"
+                        }
+                        selectorBox.style['height'] = (Math.abs(e.clientY - lastY))+"px"
+                        selectorBox.style['width'] = (Math.abs(e.clientX - lastX))+"px"
+                        
+                    
+                
+                    }
             }
           
         }
     }
+    const boxSelectEnd = (event)=>{
+        // selectorBox = (document.getElementById("selector-box"))
+        if(event.buttons === 0){
+            if(selectorBox!==null){
+                lastX = null;
+                lastY = null;
+                selectorBox.style['height'] = "0px"
+                selectorBox.style['width'] = "0px"
+                selectorBox.setAttribute("drawing","0")
+                selectorBox=null
 
-    const selEnd = (event) => {
-
-        
-        let n = event.target.className;
-        if(n.includes("d4y")){
-            end = event.target.getAttribute("v")
-            let l = n.length
-            weekEnd = n.substring(l-5,l)
+            }
         }
-
-        sel();
-        
     }
-
-
 
 
     const quicMenu = (event) => {
@@ -121,7 +205,8 @@ export const WeekList = (props) => {
     intervals.push({a:day_end,b:iter})
 
     return(
-        <div className="week">
+        <div className="week" onMouseMove={boxSelect} onMouseDown={boxSelectStart} onMouseUp={boxSelectEnd}>
+        <div id="selector-box"/>
             <table className="metric" onContextMenu={quicMenu}>
                 
                 
