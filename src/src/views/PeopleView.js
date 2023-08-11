@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {WeekList} from '../lists/WeekList.js'
 import {PeopleList} from '../lists/PeopleList.js'
+import {BoxSelect} from '../utils/BoxSelect.js'
 export const PeopleView = (props)=>{
 
     const [r, setR] = useState(false);
@@ -65,8 +66,9 @@ export const PeopleView = (props)=>{
           </div>
             
             <div className="vertical-scroll">
- 
-              <WeekList/>
+              <BoxSelect>
+                  <WeekList/>
+              </BoxSelect>
             </div>
           </div>
 

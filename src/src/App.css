@@ -238,6 +238,8 @@ flex-direction: column;
   min-width: 100px;
   border: 1px solid transparent;
   user-select: none;
+  margin: 0;
+  
 }
 .tableRow{
   background-color: whitesmoke;
@@ -291,4 +293,22 @@ flex-direction: column;
 }
 .static-tableNames th:hover{
   background-color: lightblue;
+}
+.s1{
+  background-color: lightblue !important;
+}
+.s2{
+  background-color: pink;
+}
+.full-fill{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  justify-content:flex-start;
+}
+.box-select-zone{
+  width:fit-content;
 }
